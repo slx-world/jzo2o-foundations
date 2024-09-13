@@ -87,6 +87,7 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
      * @param price 服务价格
      * @return 修改后的服务信息
      */
+    @Transactional
     @Override
     public Serve update(Long id, BigDecimal price) {
         boolean update = lambdaUpdate()
@@ -95,6 +96,48 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
                 .update();
         if (!update) {
             throw new ForbiddenOperationException("服务价格修改失败");
+        }
+        return baseMapper.selectById(id);
+    }
+
+    @Transactional
+    @Override
+    public Serve onSale(Long id) {
+        Serve serve = baseMapper.selectById(id);
+        if (ObjectUtil.isNull(serve)) {
+            throw new ForbiddenOperationException("区域服务不存在");
+        }
+        // 上架状态：0-草稿，1-启用，2-禁用
+        Integer saleStatus = serve.getSaleStatus();
+        if (saleStatus == FoundationStatusEnum.ENABLE.getStatus()) {
+            throw new ForbiddenOperationException("服务已上架，不能重复上架");
+        }
+
+        // 草稿状态和禁用状态才能上架
+        if (!(saleStatus == FoundationStatusEnum.INIT.getStatus() || saleStatus == FoundationStatusEnum.DISABLE.getStatus())) {
+            throw new ForbiddenOperationException("草稿状态和禁用状态才能上架");
+        }
+
+        // 服务项id
+        Long serveItemId = serve.getServeItemId();
+        ServeItem serveItem = serveItemMapper.selectById(serveItemId);
+        if (ObjectUtil.isNull(serveItem)) {
+            throw new ForbiddenOperationException("服务项不存在");
+        }
+
+        // 服务项的启用状态
+        Integer serveItemStatus = serveItem.getActiveStatus();
+        if (serveItemStatus != FoundationStatusEnum.ENABLE.getStatus()) {
+            throw new ForbiddenOperationException("服务项未启用，不能上架");
+        }
+
+        // 更新服务状态为上架
+        boolean update = lambdaUpdate()
+                .eq(Serve::getId, id)
+                .set(Serve::getSaleStatus, FoundationStatusEnum.ENABLE.getStatus())
+                .update();
+        if (!update) {
+            throw new ForbiddenOperationException("服务上架失败");
         }
         return baseMapper.selectById(id);
     }
