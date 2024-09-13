@@ -46,4 +46,26 @@ public interface IServeService extends IService<Serve> {
      */
     Serve onSale(Long id);
 
+    /**
+     * 区域服务删除
+     *
+     * @param id
+     */
+    void deleteById(Long id);
+
+    /**
+     * 服务下架
+     * @param id 服务id
+     * @return 服务信息
+     */
+    Serve offSale(Long id);
+
+    /**
+     * 服务设置/取消热门
+     * @param id 服务id
+     * @param flag 是否为热门，0：非热门，1：热门
+     * @return
+     */
+    Serve changeHotStatus(Long id, Integer flag);
+
 }

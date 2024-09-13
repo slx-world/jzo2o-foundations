@@ -142,4 +142,52 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         return baseMapper.selectById(id);
     }
 
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        Serve serve = baseMapper.selectById(id);
+        if (ObjectUtil.isNull(serve)) {
+            throw new ForbiddenOperationException("服务不存在");
+        }
+        if (serve.getSaleStatus() == FoundationStatusEnum.ENABLE.getStatus()) {
+            throw new ForbiddenOperationException("服务已上架，不能删除");
+        }
+        baseMapper.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public Serve offSale(Long id) {
+        Serve serve = baseMapper.selectById(id);
+        if (ObjectUtil.isNull(serve)) {
+            throw new ForbiddenOperationException("服务不存在");
+        }
+        // 服务只有上架，才能下架
+        if (!(serve.getSaleStatus() == FoundationStatusEnum.ENABLE.getStatus())) {
+            throw new ForbiddenOperationException("服务只有上架，才能下架");
+        }
+        boolean update = lambdaUpdate()
+                .eq(Serve::getId, id)
+                .set(Serve::getSaleStatus, FoundationStatusEnum.DISABLE.getStatus())
+                .update();
+        if (!update) {
+            throw new ForbiddenOperationException("服务下架失败");
+        }
+        return baseMapper.selectById(id);
+    }
+
+    @Transactional
+    @Override
+    public Serve changeHotStatus(Long id, Integer flag) {
+        boolean update = lambdaUpdate()
+                .eq(Serve::getId, id)
+                .set(Serve::getIsHot, flag)
+                .set(Serve::getHotTimeStamp, System.currentTimeMillis())
+                .update();
+        if (!update) {
+            throw new ForbiddenOperationException("服务热门状态修改失败");
+        }
+        return baseMapper.selectById(id);
+    }
+
 }

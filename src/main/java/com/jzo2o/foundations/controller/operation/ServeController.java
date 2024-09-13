@@ -1,5 +1,6 @@
 package com.jzo2o.foundations.controller.operation;
 
+import com.jzo2o.common.enums.EnableStatusEnum;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class ServeController {
             @ApiImplicitParam(name = "price", value = "价格", required = true, dataTypeClass = BigDecimal.class)
     })
     public void update(@PathVariable("id") Long id,
-                       @RequestParam("price")BigDecimal price) {
+                       @RequestParam("price") BigDecimal price) {
         serveService.update(id, price);
     }
 
@@ -59,6 +61,43 @@ public class ServeController {
     })
     public void onSale(@PathVariable("id") Long id) {
         serveService.onSale(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation("区域服务删除")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "服务id", required = true, dataTypeClass = Long.class),
+    })
+    public void delete(@NotNull(message = "服务id不能为空") @PathVariable("id") Long id) {
+        serveService.deleteById(id);
+    }
+
+    @PutMapping("/offSale/{id}")
+    @ApiOperation("区域服务下架")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "服务id", required = true, dataTypeClass = Long.class),
+    })
+    public void offSale(@PathVariable("id") Long id) {
+        serveService.offSale(id);
+    }
+
+
+    @PutMapping("/onHot/{id}")
+    @ApiOperation("区域服务设置热门")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void onHot(@NotNull(message = "id不能为空") @PathVariable("id") Long id) {
+        serveService.changeHotStatus(id, EnableStatusEnum.ENABLE.getStatus());
+    }
+
+    @PutMapping("/offHot/{id}")
+    @ApiOperation("区域服务取消热门")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void offHot(@NotNull(message = "id不能为空") @PathVariable("id") Long id) {
+        serveService.changeHotStatus(id, EnableStatusEnum.DISABLE.getStatus());
     }
 
 }
