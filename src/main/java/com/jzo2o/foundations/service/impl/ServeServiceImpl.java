@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -78,6 +79,24 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
             serve.setCityCode(region.getCityCode());
             baseMapper.insert(serve);
         }
+    }
+
+    /**
+     *  区域服务价格修改
+     * @param id 服务id
+     * @param price 服务价格
+     * @return 修改后的服务信息
+     */
+    @Override
+    public Serve update(Long id, BigDecimal price) {
+        boolean update = lambdaUpdate()
+                .eq(Serve::getId, id)
+                .set(Serve::getPrice, price)
+                .update();
+        if (!update) {
+            throw new ForbiddenOperationException("服务价格修改失败");
+        }
+        return baseMapper.selectById(id);
     }
 
 }
