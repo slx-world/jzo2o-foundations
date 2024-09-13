@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
+import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.ServeResDTO;
+
+import java.util.List;
 
 /**
  * @Author: Song Laixiong
@@ -20,5 +23,12 @@ public interface IServeService extends IService<Serve> {
      * @return 分页结果
      */
     PageResult<ServeResDTO> page(ServePageQueryReqDTO servePageQueryReqDTO);
+
+    /**
+     *  批量添加服务
+     * @param serveUpsertReqDTOList 批量添加的服务信息
+     */
+    void batchAdd(List<ServeUpsertReqDTO> serveUpsertReqDTOList);
+
 
 }
