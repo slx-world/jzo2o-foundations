@@ -68,4 +68,20 @@ public interface IServeService extends IService<Serve> {
      */
     Serve changeHotStatus(Long id, Integer flag);
 
+    /**
+     * 根据区域id和上架状态查询服务数量
+     * @param regionId 区域id
+     * @param saleStatus 上架状态
+     * @return 服务数量
+     */
+    int queryServeCountByRegionIdAndSaleStatus(Long regionId, Integer saleStatus);
+
+    /**
+     * 根据服务项id和上架状态查询服务数量
+     * @param serveItemId 服务项id
+     * @param saleStatus 上架状态
+     * @return 服务数量
+     */
+    int queryServeCountByServeItemIdAndSaleStatus(Long serveItemId, Integer saleStatus);
+
 }

@@ -190,4 +190,22 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         return baseMapper.selectById(id);
     }
 
+    @Override
+    public int queryServeCountByRegionIdAndSaleStatus(Long regionId, Integer saleStatus) {
+        Integer count = lambdaQuery()
+                .eq(Serve::getRegionId, regionId)
+                .eq(Serve::getSaleStatus, saleStatus)
+                .count();
+        return count;
+    }
+
+    @Override
+    public int queryServeCountByServeItemIdAndSaleStatus(Long serveItemId, Integer saleStatus) {
+        Integer count = lambdaQuery()
+                .eq(Serve::getServeItemId, serveItemId)
+                .eq(Serve::getSaleStatus, saleStatus)
+                .count();
+        return count;
+    }
+
 }
