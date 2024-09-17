@@ -89,13 +89,12 @@ B2B2C:
 
 平台方：通过管理端完成服务人员管理、机构管理、订单管理、财务管理等操作，一笔完成的订单，结算时按照分成比例平台进行抽成。
 
-![企业微信截图_f2d2cb04-fcfc-45ad-8e8c-fca0d91507b8](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\44cbe26d-a654-452f-93ec-58613dcdc338\企业微信截图_f2d2cb04-fcfc-45ad-8e8c-fca0d91507b8.png)
-
+<img width="1383" alt="企业微信截图_f2d2cb04-fcfc-45ad-8e8c-fca0d91507b8" src="https://github.com/user-attachments/assets/98ac2009-c7ca-40b7-84a5-e8fd606cb350">
 
 
 ## 5. 业务流程
 
-![whiteboard_exported_image](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\1d2ca7b0-f1e3-4a3b-adb8-87f2aa37d56e\whiteboard_exported_image.png)
+![whiteboard_exported_image](https://github.com/user-attachments/assets/57553d54-f250-4bb5-a7e5-977241c58444)
 
 核心流程：
 
@@ -111,8 +110,8 @@ B2B2C:
 
 
 ## 6. 业务模块
+![小智帮结构图@2x](https://github.com/user-attachments/assets/73497fca-06f7-4786-801f-2844cdc39dbc)
 
-![小智帮结构图@2x](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\15d1ccf8-18c4-4114-9509-ce638891a83a\小智帮结构图@2x.png)
 
 我们根据业务流程去分析各个模块的功能：
 
@@ -139,8 +138,8 @@ B2B2C:
 ## 7. 项目架构
 
 项目是基于Spring Cloud Alibaba框架构建的微服务项目，采用前后端分离模式进行开发，系统架构图如下：
+![image](https://github.com/user-attachments/assets/2f39eb19-65c1-4d2f-ab98-a0046b97f5fb)
 
-![image](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\81e6daa9-9e12-4d1b-82ab-8c8947504c5e\image.png)
 
 用户层：
 
@@ -174,21 +173,14 @@ TiDB分布式数据库存储：历史订单信息。
 
 项目核心交互流程如下图：
 
-![流程图](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\0f043c85-1e46-4c45-9efd-d3e31d131468\流程图.jpg)
-
-
+![流程图](https://github.com/user-attachments/assets/bb64885a-0adf-41c2-9d2d-247cee95d585)
 
 ## 8. 工程结构
-
 jzo2o-foundations运营基础服务工程的目录结构如下图：
-
-![image-20240917014828021](C:\Users\slx99\AppData\Roaming\Typora\typora-user-images\image-20240917014828021.png)
-
-
+![image](https://github.com/user-attachments/assets/bc8bab0b-7a21-46b6-9e59-f085b7e5dad1)
 
 ## 9. 表结构
-
-![image](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\4cb340bf-3469-422a-930d-1483dd73cdef\image.png)
+![image](https://github.com/user-attachments/assets/be0e9347-4965-45ad-abba-0375e40ac609)
 
 **serve_type**：服务类型表
 
