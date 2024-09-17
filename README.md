@@ -57,7 +57,8 @@ jzo2o-foundations工程的相关文档：
 
 ## 4. 运营模式
 
-![企业微信截图_5d6a07c7-0f53-480e-9a6e-2d3c23df705d](C:\Users\slx99\AppData\Local\Temp\MicrosoftEdgeDownloads\c1dbcce1-5eb8-4355-a9e1-74aa7b936a7d\企业微信截图_5d6a07c7-0f53-480e-9a6e-2d3c23df705d.png)
+<img width="889" alt="企业微信截图_5d6a07c7-0f53-480e-9a6e-2d3c23df705d" src="https://github.com/user-attachments/assets/d401720c-77f2-4665-b9ba-acb232dc4403">
+
 
 C2B2C:
 
