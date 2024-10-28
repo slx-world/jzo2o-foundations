@@ -9,9 +9,9 @@ jzo2o-foundations工程的相关文档：
 
 | 工程名                | 中文名称         | 职责                                       | 链接地址                                           |
 | --------------------- | ---------------- | ------------------------------------------ | :------------------------------------------------- |
-| jzo2o-gateway         | 网关             | 请求过虑、负载均衡、路由转发               |                                                    |
-| jzo2o-framework       | 系统架构基础工程 | 提供系统架构封装的基础代码                 |                                                    |
-| jzo2o-api             | 接口工程         | 提供服务之间远程调用接口的定义             |                                                    |
+| jzo2o-gateway         | 网关             | 请求过虑、负载均衡、路由转发               | https://github.com/slx-world/jzo2o-gateway.git     |
+| jzo2o-framework       | 系统架构基础工程 | 提供系统架构封装的基础代码                 | https://github.com/slx-world/jzo2o-framework.git   |
+| jzo2o-api             | 接口工程         | 提供服务之间远程调用接口的定义             | https://github.com/slx-world/jzo2o-api.git         |
 | jzo2o-foundations     | 运营基础服务     | 服务管理、区域管理等运行基础服务           | https://github.com/slx-world/jzo2o-foundations.git |
 | jzo2o-customer        | 客户管理服务     | 用户管理、服务人员管理、机构人员管理       | https://github.com/slx-world/jzo2o-customer.git    |
 | jzo2o-orders-manager  | 订单管理服务     | 下单、订单状态管理、订单信息管理           |                                                    |

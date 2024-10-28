@@ -9,24 +9,16 @@ import org.springframework.util.Assert;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @Author: Song Laixiong
- * @Create: 2024-09-13
- * @Description:
- */
-
 @SpringBootTest
 @Slf4j
-public class ServeMapperTest {
-
+class ServeMapperTest {
     @Resource
     private ServeMapper serveMapper;
 
     @Test
-    public void test_queryServeListByRegionId(){
-        List<ServeResDTO> serveResDTOS = serveMapper.queryServeListByRegionId(1692010607909900289L);
-        Assert.notEmpty(serveResDTOS, "查询服务列表为空");
-        log.info("serveResDTOS:{}",serveResDTOS);
+    void test_queryServeListByRegionId() {
+        List<ServeResDTO> serveResDTOS = serveMapper.queryServeListByRegionId(1686303222843662337L);
+        Assert.notEmpty(serveResDTOS,"列表为空");
     }
 
 }
