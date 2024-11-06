@@ -47,7 +47,8 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     @Override
     public PageResult<ServeResDTO> page(ServePageQueryReqDTO servePageQueryReqDTO) {
         // 调用mapper查询数据，这里由于继承了ServiceImpl<ServeMapper, Serve>，使用baseMapper相当于使用ServeMapper
-        PageResult<ServeResDTO> serveResDTOPageResult = PageHelperUtils.selectPage(servePageQueryReqDTO, () -> baseMapper.queryServeListByRegionId(servePageQueryReqDTO.getRegionId()));
+        PageResult<ServeResDTO> serveResDTOPageResult = PageHelperUtils.selectPage(servePageQueryReqDTO, () ->
+                baseMapper.queryServeListByRegionId(servePageQueryReqDTO.getRegionId()));
         return serveResDTOPageResult;
     }
 
@@ -107,8 +108,11 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         if (ObjectUtil.isNull(serve)) {
             throw new ForbiddenOperationException("区域服务不存在");
         }
+
         // 上架状态：0-草稿，1-启用，2-禁用
         Integer saleStatus = serve.getSaleStatus();
+
+        // 服务已上架，不能重复上架
         if (saleStatus == FoundationStatusEnum.ENABLE.getStatus()) {
             throw new ForbiddenOperationException("服务已上架，不能重复上架");
         }
@@ -122,7 +126,7 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         Long serveItemId = serve.getServeItemId();
         ServeItem serveItem = serveItemMapper.selectById(serveItemId);
         if (ObjectUtil.isNull(serveItem)) {
-            throw new ForbiddenOperationException("服务项不存在");
+            throw new ForbiddenOperationException("所属服务项不存在");
         }
 
         // 服务项的启用状态
@@ -146,9 +150,13 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     @Override
     public void deleteById(Long id) {
         Serve serve = baseMapper.selectById(id);
+
+        // 区域服务不存在
         if (ObjectUtil.isNull(serve)) {
             throw new ForbiddenOperationException("服务不存在");
         }
+
+        // 区域服务已上架，不能删除
         if (serve.getSaleStatus() == FoundationStatusEnum.ENABLE.getStatus()) {
             throw new ForbiddenOperationException("服务已上架，不能删除");
         }
@@ -159,13 +167,18 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     @Override
     public Serve offSale(Long id) {
         Serve serve = baseMapper.selectById(id);
+
+        // 区域服务不存在，无法下架
         if (ObjectUtil.isNull(serve)) {
             throw new ForbiddenOperationException("服务不存在");
         }
-        // 服务只有上架，才能下架
+
+        // 区域服务只有上架，才能下架
         if (!(serve.getSaleStatus() == FoundationStatusEnum.ENABLE.getStatus())) {
             throw new ForbiddenOperationException("服务只有上架，才能下架");
         }
+
+        // 区域服务下架
         boolean update = lambdaUpdate()
                 .eq(Serve::getId, id)
                 .set(Serve::getSaleStatus, FoundationStatusEnum.DISABLE.getStatus())
@@ -173,6 +186,8 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         if (!update) {
             throw new ForbiddenOperationException("服务下架失败");
         }
+
+        // 查询返回结果
         return baseMapper.selectById(id);
     }
 
@@ -187,6 +202,8 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         if (!update) {
             throw new ForbiddenOperationException("服务热门状态修改失败");
         }
+
+        // 查询返回结果
         return baseMapper.selectById(id);
     }
 
