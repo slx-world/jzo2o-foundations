@@ -19,7 +19,7 @@ class IServeServiceTest {
 
     @Test
     public void test_queryServeByIdCache(){
-        Serve serveByIdCache = serveService.queryServeByIdCache(1693815623867506689L);
+        Serve serveByIdCache = serveService.queryServeByIdCache(1715263395009191938L);
         log.info("serveByIdCache : {}", serveByIdCache);
         Assert.notNull(serveByIdCache,"查询结果为空");
     }
@@ -35,6 +35,28 @@ class IServeServiceTest {
         log.info("page : {}", page);
         Assert.notEmpty(page.getList(),"列表为空");
     }
+
+    // 服务上架测试
+    @Test
+    public void test_onSale() {
+        Serve serve = serveService.onSale(1693814923234189313L);
+        Assert.notNull(serve, "服务为空");
+    }
+
+    // 服务下架测试
+    @Test
+    public void test_offSale() {
+        Serve serve = serveService.offSale(1693814923234189313L);
+        Assert.notNull(serve, "服务为空");
+    }
+
+    @Test
+    public void test_queryServeByIdCache2() {
+        Serve serve = serveService.queryServeByIdCache(123L);
+        Assert.notNull(serve, "服务为空");
+    }
+
+
 
 //    @Test
 //    void listServeItemByCityCode() {
